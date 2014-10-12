@@ -1,0 +1,51 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">Puertos</h1>
+    </header>
+    <ion-content class="has-header">
+      <ion-list>
+
+        <ion-item class="item-divider">
+          Serie OTG
+        </ion-item divider>
+
+        <ion-item nav-clear ng-click="conectarCableado({debug: FirmatAngular.debug, firmata:true})">
+          Serial cableado
+        </ion-item>
+
+        <ion-item class="item-divider">
+          Bluetooth
+        </ion-item divider>
+
+        <ion-list>
+          <ion-item nav-clear ng-repeat="device in bluetoothDevices" ng-click="conectarBluetooth({debug:false, firmata:true, device:device})">
+            {{ device.name }}
+          </ion-item>
+        </ion-list>
+
+        <ion-item class="item-divider">
+          Debug
+        </ion-item divider>
+
+        <ion-toggle nav-clear ng-model="FirmatAngular.debug">
+            Dump firmata a consola.
+        </ion-toggle>
+
+        <ion-item nav-clear ng-click="fakeInit()">
+          Board.fakeInit()
+        </ion-item>
+
+
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

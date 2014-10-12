@@ -1,0 +1,22 @@
+<ion-view title="Prueba Cordova + Firmata">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <ion-list>
+
+        <ion-item ng-repeat="pin in FirmatAngular.Board.pins track by $index" ng-if="pin.supportedModes.length != 0">
+            Pin {{ $index }}
+            <select ng-model="pin.mode" ng-options="mode as MODE_NAMES[mode] for mode in pin.supportedModes" ng-change="FirmatAngular.Board.pinMode($index, pin.mode); pin.value = 0">
+            </select>
+                <ion-checkbox ng-if="pin.mode == Firmata.MODES.OUTPUT" ng-model="pin.value" ng-change="FirmatAngular.Board.digitalWrite($index, pin.value)">
+                </ion-checkbox>
+
+                <input type="range" ng-if="pin.mode == Firmata.MODES.PWM" min="0" max="255" ng-model="pin.value" ng-change="FirmatAngular.Board.analogWrite($index, pin.value)">
+
+                <p ng-if="pin.mode == Firmata.MODES.INPUT || pin.mode == Firmata.MODES.ANALOG || pin.mode == Firmata.MODES.PWM">{{ pin.value }}</p>
+        </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>
